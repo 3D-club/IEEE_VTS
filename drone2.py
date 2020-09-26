@@ -35,7 +35,7 @@ while True:
     time.sleep(1)
 
 #opens a file which contains the waypopint where deployment is required
-f = open("Temp_log.txt","r")
+f = open("Temp_Log.txt","r")
 reach = []
 
 #This loop checks for the updation of the file initialised, if some new coordinate is found it travels to that waypoint.
