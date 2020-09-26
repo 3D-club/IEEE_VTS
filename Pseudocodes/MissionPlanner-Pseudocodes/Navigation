@@ -1,0 +1,26 @@
+Drone Navigation
+
+Start
+  Step 1: Get the destination (dlat,dlon) pair from the waypoint
+  Step 2: Using the GPS, get the current location of the drone. Store it as (ilat,ilon)
+  Step 3: Initialize the vehicle speeds vx, vy, vz as 0 each
+  Step 4: Set up the region of interest and frame of reference
+  Step 5: Measure the distance between the current location and the destination, and plan for     an optimal path. path = list((lat, long) to be followed
+  Step 6: Navigating to the destination. traversed = list()
+      loc = (ilat, ilon)
+      for i in range(len(path)):
+           traversed.append(path[i])
+            if path[i] = (dlat,dlon):
+                  drone.stop()
+                  drone.hover()
+                   Release_operation_execution_log
+            else:
+                  optimize((vx,vy,vz), path[i+1])
+                  drone.navigate(next_point)
+            end if
+      end for
+  Step 7: The final point is reached, and confirmation is sent to the client
+End
+
+
+
