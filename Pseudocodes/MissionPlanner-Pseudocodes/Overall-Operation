@@ -1,0 +1,29 @@
+Overall Operation
+
+Start
+  Step 1: Initializing the drone parameters and connecting the motors and actuators. Let δ(i,j) be the probability of finding humans in close proximity of point (i,j).
+  Step 2: Terrain detection and definition. alt is the altitude of operation.
+  Step 3: Takeoff of the survey drone and navigation to probable waypoints. This semi-autonomous drone is controlled by the pilot for movements.
+      drone1.take_off(alt)
+      for point (x,y) in the area:
+        drone1.go_to(x,y)
+        if δ(x,y) > 0.5: #decided by the pilot
+          waypoint_list.append(x,y,alt)
+          h_count = drone1.countHuman()
+          drone1.send_params _drone2(waypoint, h_count)
+          execute Step 4
+        else:
+          continue navigation
+        end if
+      end for
+  Step 4: Working of the payload drone (fully autonomous). 
+   mission_params = list(waypoints, h_count)
+      for information in mission_params:
+        drone2.take_off(alt)
+        drone2.go_to(information[waypoint])
+        drone2.dropPackages(information[h_count])
+        drone2.send_log_file()
+      end for
+  Step 5: Confirm the log file with the number of dropped packages.
+  Step 6: Return to launch after accomplishing the mission and disarm the motors and actuators.
+End
