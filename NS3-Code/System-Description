@@ -1,0 +1,16 @@
+System Description
+
+
+Network Simulator                       NS3
+Number of Mobile Nodes                  2
+Number of Stationary Nodes              1
+Relative Speed between the nodes        10 m/s
+MAC Protocol                            IEEE 802.11p
+MAC Rate                                12Mbps
+Ether Type                              WSMP
+Channel Type                            CCH
+Packet Size                             88 bytes
+Data Rate                               CBR (Constant Bit Rate)
+Propagation Loss Model                  Nakagami, Log Distance
+Simulation Grid                         500m x 100m x 100m
+Simulation Time                         100 seconds
