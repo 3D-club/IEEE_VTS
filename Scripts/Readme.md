@@ -16,21 +16,21 @@ First we need some softwares for applying these scripts.
   
 ### Setting up anaconda: - 
 1. Open one anaconda3 terminal.
-2. Type "conda create -n environment_name python==2.7" and run it. This creates a environment where we can install any other version of python in which we wish to work.
-3. Type "conda activate environment_name" to activate the environment.
+2. Type ```conda create -n environment_name python==2.7``` and run it. This creates a environment where we can install any other version of python in which we wish to work.
+3. Type ```conda activate environment_name``` to activate the environment.
 4. Now we will install some necessary frameworks.
 5. Use the following commands one by one and wait for completion: - 
-    pip install mavproxy
-    pip install dronekit
-    pip install dronekit-sitl
+    ```pip install mavproxy```
+    ```pip install dronekit```
+    ```pip install dronekit-sitl```
 6. Also we have to change the version of pymavlink so that it becomes compatible.
-7. For removing previous version type "pip uninstall pymavlink"
-8. For installing required version type "pip install pymavlink==2.4.6"
+7. For removing previous version type ```pip uninstall pymavlink```
+8. For installing required version type ```pip install pymavlink==2.4.6```
 9. Your anaconda terminal is set
 
 
 ### Starting simulations: - 
-1. Open 6 new terminals and run "conda activate environment_name".
+1. Open 6 new terminals and run ```conda activate environment_name```.
 2. Type these commands in specified terminal: - 
 
    **Terminal 1**(T1) -> ``` dronekit-sitl copter -I0 --home=10.757575,78.816440,0,180 ```
