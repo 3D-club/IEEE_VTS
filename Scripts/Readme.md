@@ -6,8 +6,9 @@ First we need some softwares for applying these scripts.
 
 #### They can be downloaded from following links: - 
 1. [Mission Planner](https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-latest.msi)
-  [Installation](https://ardupilot.org/planner/docs/mission-planner-installation.html)
-  Follow the steps from the above link.
+
+  Follow the steps given [here](https://ardupilot.org/planner/docs/mission-planner-installation.html)
+  
   
 2. [Anaconda3](https://www.anaconda.com/products/individual)
   Installation: - 
