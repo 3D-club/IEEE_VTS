@@ -32,12 +32,19 @@ First we need some softwares for applying these scripts.
 ### Starting simulations: - 
 1. Open 6 new terminals and run "conda activate environment_name".
 2. Type these commands in every terminal: - 
+
    **T1** -> ``` dronekit-sitl copter -I0 --home=10.757575,78.816440,0,180 ```
+   
    **T2** -> ``` py mavproxy.py --master tcp:127.0.0.1:5760 --out udp:127.0.0.1:14550 --out udp:127.0.0.1:10250 ```
+   
    **T3** -> ``` python drone_one.py ```
+   
    **T4** -> ``` dronekit-sitl copter -I1 --home=10.757575,78.816540,0,180 ```
+   
    **T5** -> ``` py mavproxy.py --master tcp:127.0.0.1:5770 --out udp:127.0.0.1:14551 --out udp:127.0.0.1:10251 ```
+   
    **T6** -> ``` python drone_two.py ```
+   
 3. Run T1, T2, T4, T5.
 4. Now open mission planner and wait until it spawns the two drones.
 5. When done spawning run T3 and T6.
