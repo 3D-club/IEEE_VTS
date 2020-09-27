@@ -1,10 +1,10 @@
 First we need some softwares for applying these scripts.
 
-The softwares are listed below: - 
+### The softwares are listed below: - 
 1. Mission PLanner 1.3.73
 2. Anaconda 3(64-bit)
 
-They can be downloaded from following links: - 
+#### They can be downloaded from following links: - 
 1. Mission Planner - https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-latest.msi
   Installation: - 
   https://ardupilot.org/planner/docs/mission-planner-installation.html
@@ -14,7 +14,7 @@ They can be downloaded from following links: -
   Installation: - 
   Just keep clicking next except one step where you must ensure to check the 2nd to be ticked and 1st option is not.
   
-Setting up anaconda: - 
+### Setting up anaconda: - 
 1. Open one anaconda3 terminal.
 2. Type "conda create -n environment_name python==2.7" and run it. This creates a environment where we can install any other version of python in which we wish to work.
 3. Type "conda activate environment_name" to activate the environment.
@@ -29,7 +29,7 @@ Setting up anaconda: -
 9. Your anaconda terminal is set
 
 
-Starting simulations: - 
+### Starting simulations: - 
 1. Open 6 new terminals and run "conda activate environment_name".
 2. Type these commands in every terminal: - 
    T1 - dronekit-sitl copter -I0 --home=10.757575,78.816440,0,180
