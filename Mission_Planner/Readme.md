@@ -1,6 +1,6 @@
-First we need some softwares for applying these scripts.
+First we need some software for applying these scripts.
 
-### The softwares are listed below: - 
+### The software are listed below: - 
 1. Mission PLanner 1.3.73
 2. Anaconda 3(64-bit)
 
