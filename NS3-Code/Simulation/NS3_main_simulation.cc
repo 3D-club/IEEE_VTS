@@ -163,7 +163,7 @@ bool ReceivePacket (Ptr<NetDevice> device, Ptr<const Packet> packet,uint16_t pro
 
 void SendPacket(Ptr <WaveNetDevice> wd0,Mac48Address dest,uint16_t protocol,TxInfo tx,NodeContainer nodes, uint8_t i){
   Vector position = nodes.Get(0)->GetObject<MobilityModel>()->GetPosition();
-//Adding position information of survey drone to the packet.
+//Adding position information of survey drone to the buffer.
   uint16_t packetSize = sizeof(double)*3;
   uint8_t buffer[packetSize];
   uint8_t* xmessage = (uint8_t *) &position.x;
@@ -185,11 +185,17 @@ void SendPacket(Ptr <WaveNetDevice> wd0,Mac48Address dest,uint16_t protocol,TxIn
     }
     }
   }
-  Ptr<Packet> packet = Create<Packet>(buffer, packetSize);
+//Creating a packet with the initialized buffer
+ 
+Ptr<Packet> packet = Create<Packet>(buffer, packetSize);
 CustomDataTag tag;
+
+//Adding a timestamp to the custom tag before sending the packet
+
 Time t =1000*1000*1000*Time(i);
 tag.SetTimestamp(t);
 packet->AddPacketTag (tag);
+//Firing the packet into the network with scheduler and SendX function of WaveNetdevice
    Simulator::ScheduleNow ( &WaveNetDevice::SendX, wd0, packet, dest, protocol, tx);
 }
 
@@ -216,6 +222,7 @@ void Rx (std::string context, Ptr <const Packet> packet, uint16_t channelFreqMhz
 	}
 }
 
+//The trace callback to detect packet drops in the network 
 void RxDrop (std::string context, Ptr<const Packet> packet)
 {
 	std::cout << BOLD_CODE << YELLOW_CODE << "Packet Rx Dropped!" << END_CODE << std::endl;
@@ -238,6 +245,7 @@ void EnqueueTrace(std::string context, Ptr<const WifiMacQueueItem> item)
 	Ptr <const Packet> p = item->GetPacket();
 	
 }
+
 //Fired when a packet is Dequeued from MAC layer. A packet is dequeued before it is transmitted.
 void DequeueTrace(std::string context, Ptr<const WifiMacQueueItem> item)
 {
@@ -248,9 +256,8 @@ void DequeueTrace(std::string context, Ptr<const WifiMacQueueItem> item)
 
 //A packet can get dequeued (dropped_ if it exceeded MaxDelay (default is 500ms)
 	std::cout << "\tQueuing delay=" << queue_delay << std::endl;
-
-
 }
+//The main function
 
 int main (int argc, char *argv[])
 {
@@ -312,7 +319,7 @@ int main (int argc, char *argv[])
 
   QosWaveMacHelper waveMac = QosWaveMacHelper::Default ();
   WaveHelper waveHelper = WaveHelper::Default ();
-
+//Setting up a constant rate wifi manager for stable data rate with the data rate being 6Mbps OFDM with a bandwidth of 10MHz
   waveHelper.SetRemoteStationManager ("ns3::ConstantRateWifiManager",
   						"DataMode", StringValue ("OfdmRate6MbpsBW10MHz"	),
   						"ControlMode",StringValue ("OfdmRate6MbpsBW10MHz"),
@@ -329,8 +336,10 @@ int main (int argc, char *argv[])
 //Getting the mac address of ground station and payload
   
   Ptr <WaveNetDevice> d2 = DynamicCast<WaveNetDevice>(devices.Get(2));
+//dest mac address contains the address for ground station
   Mac48Address dest = Mac48Address::ConvertFrom (d2->GetAddress());
   Ptr <WaveNetDevice> d1 = DynamicCast<WaveNetDevice>(devices.Get(1));
+//dest mac address contains the address for payload drone
   Mac48Address dest2 = Mac48Address::ConvertFrom (d1->GetAddress());
 
   uint16_t protocol = 0x88dc;
@@ -339,7 +348,7 @@ int main (int argc, char *argv[])
   TxInfo tx;
 
   //We set the channel on which the packet is sent. The WaveNetDevice must have access to the channel
-  //CCH is enabled by default.
+  //Setting the (CCH) Control Channel as transmission channel for faster data transfer
   tx.channelNumber = CCH;
 
   //We can set per-packet data rate. This packet will have a rate of 12Mbps.
@@ -374,7 +383,10 @@ int main (int argc, char *argv[])
   Ptr <WaveNetDevice> wd0 = DynamicCast <WaveNetDevice> (d0);
   //Calling the schedule function to initiate the SendPacket function every 1 second.
   for(uint8_t i=2;i<100;i++){
+//calling the SendPacket function to send the packet to ground station
   Simulator::Schedule (Seconds (i),&SendPacket, wd0,dest, protocol, tx, nodes,i);
+
+//calling the SendPacket function to send the packet to payload drone
   Simulator::Schedule (Seconds (i),&SendPacket, wd0,dest2, protocol, tx, nodes,i);
 
   }
@@ -383,7 +395,6 @@ int main (int argc, char *argv[])
   devices.Get(2)->SetReceiveCallback ( MakeCallback(&ReceivePacket) );
   //Set the number of power levels.
   Config::Set("/NodeList/*/DeviceList/*/$ns3::WaveNetDevice/PhyEntities/*/TxPowerLevels", ns3::UintegerValue(7));
-
 
   /*
    * What if some packets were dropped due to collision, or whatever? We use this trace to fire RxDrop function
