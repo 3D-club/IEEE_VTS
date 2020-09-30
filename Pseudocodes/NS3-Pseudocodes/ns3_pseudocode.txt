@@ -1,0 +1,41 @@
+The NS3 simulation was set-up with two nodes installed
+with WIFI and PHY channels, and each of them were assigned an initial position
+with a random 3-dimensional mobility model(Gauss-Markov Model). The
+transmission power was set to a range of 8 - 33dBm. Additionally, Nakagami Loss
+Model was implemented to simulate a realistic environment.
+
+
+
+The Nakagami-m
+fast fading model takes into consideration the multipath fading resulting in
+variations of signal strength.
+
+
+
+Further, WAVE helper was installed into the nodes
+along with QoS MAC helper. The WAVE helper's remote station manager has been
+set to Constant Rate WIFI Manager with a OFDM rate of 6Mbps and a bandwidth of
+10Mhz. The nodes were finally configured with trace callback
+functions so that when the packets are either received or dropped, we would be
+able to get subsequent information.
+
+
+
+A function was defined to create packets in the CCH
+channel with appropriate transmission power levels, priority, and data rates.
+The protocol type was set to WSMP and the destination node's MAC address was
+taken from the NetDevice[1] . The packet's buffer is
+loaded with the coordinates of the sender node and a custom tag with the
+current timestamp is added to the packet. The SendX function[2] , which is scheduled using
+the NS3 scheduler, is called to transmit the packet using the unicast mode
+along with the required transmission information.
+
+
+
+Now, the simulator is started and the other node receives the packets and
+using the trace callback functions detailed information of the received packet
+is gathered such as the buffer, noise, propagation and queueing delays. Tracing
+systems such as Packet Capture and ASCII trace were used to get additional data
+from the transmitted and received packets. To get a proper visual understanding
+of the simulation NetAnim[3]  was utilised. 
+
