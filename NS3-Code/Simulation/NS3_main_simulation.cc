@@ -1,3 +1,4 @@
+//Importing the required header files
 #include "ns3/wave-module.h"
 #include "ns3/wifi-module.h"
 #include "ns3/mobility-module.h"
@@ -42,7 +43,7 @@ private:
 	Time m_timestamp;
 
 };
-
+//Initializing the constructor, destructor and other functions of class CustomDataTag
 CustomDataTag::CustomDataTag() {
 	m_timestamp = Simulator::Now();
 }
@@ -118,8 +119,10 @@ private:
   uint16_t m_data;
 };
 
+//Enabling logging feature of ns3 for the program
 
 NS_LOG_COMPONENT_DEFINE ("WaveExample1");
+
 //The function used to detect the arrival of packets at application level
 bool ReceivePacket (Ptr<NetDevice> device, Ptr<const Packet> packet,uint16_t protocol, const Address &sender)
 {
@@ -155,14 +158,14 @@ bool ReceivePacket (Ptr<NetDevice> device, Ptr<const Packet> packet,uint16_t pro
     memcpy(&y, ymessage, sizeof(double));
     memcpy(&z, zmessage, sizeof(double));
     std::cout<<"Received:"<<size<<"  "<<x<<"  "<<y<<" "<<z<<std::endl;
-
     return true;
 }
 
-//The function used to initialize the buffer, Create packets and transmit them.
+//The function used to initialize the transmission buffer, Create packets and send them into the network.
 
 void SendPacket(Ptr <WaveNetDevice> wd0,Mac48Address dest,uint16_t protocol,TxInfo tx,NodeContainer nodes, uint8_t i){
-  Vector position = nodes.Get(0)->GetObject<MobilityModel>()->GetPosition();
+//Getting the position information of the nodes
+Vector position = nodes.Get(0)->GetObject<MobilityModel>()->GetPosition();
 //Adding position information of survey drone to the buffer.
   uint16_t packetSize = sizeof(double)*3;
   uint8_t buffer[packetSize];
@@ -198,9 +201,6 @@ packet->AddPacketTag (tag);
 //Firing the packet into the network with scheduler and SendX function of WaveNetdevice
    Simulator::ScheduleNow ( &WaveNetDevice::SendX, wd0, packet, dest, protocol, tx);
 }
-
-
-
 
 // This is a promiscuous trace for all packet reception. This is in physical layer, so packets still have WifiMacHeader
 void Rx (std::string context, Ptr <const Packet> packet, uint16_t channelFreqMhz,  WifiTxVector txVector,MpduInfo aMpdu, SignalNoiseDbm signalNoise)
@@ -241,9 +241,7 @@ void RxDrop (std::string context, Ptr<const Packet> packet)
 void EnqueueTrace(std::string context, Ptr<const WifiMacQueueItem> item)
 {
 	std::cout << TEAL_CODE << "A Packet was enqueued : " << context << END_CODE << std::endl;
-
-	Ptr <const Packet> p = item->GetPacket();
-	
+	Ptr <const Packet> p = item->GetPacket();	
 }
 
 //Fired when a packet is Dequeued from MAC layer. A packet is dequeued before it is transmitted.
@@ -269,12 +267,12 @@ int main (int argc, char *argv[])
   cmd.AddValue ("n","Number of nodes", nNodes);
 
   cmd.Parse (argc, argv);
-
-
+	
   double simTime = 110.0;
+//Creating the nodes using nodecontainer
   NodeContainer nodes;
   nodes.Create(nNodes);
-
+// Convention of nodes: node0 : "groundstation", node1 : "survey drone", node2 : "payload drone"
   ns3::PacketMetadata::Enable ();
 //Setting up mobility helper and initial positions
  
@@ -341,7 +339,7 @@ int main (int argc, char *argv[])
   Ptr <WaveNetDevice> d1 = DynamicCast<WaveNetDevice>(devices.Get(1));
 //dest mac address contains the address for payload drone
   Mac48Address dest2 = Mac48Address::ConvertFrom (d1->GetAddress());
-
+//Setting the transfer and network layer protocols or (ether type) to WSMP using the protocol variable. 
   uint16_t protocol = 0x88dc;
 
   //We can also set the transmission parameters at the higher layeres
@@ -422,7 +420,6 @@ int main (int argc, char *argv[])
   anim.UpdateNodeDescription(2,"Ground Station");
   anim.UpdateNodeColor(2,0,0,0);
    
-  
   Simulator::Stop(Seconds(simTime));
   Simulator::Run();
   Simulator::Destroy();
