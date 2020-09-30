@@ -12,7 +12,7 @@ First we need some software for applying these scripts.
   
 2. [Anaconda3](https://www.anaconda.com/products/individual)
   Installation: - 
-  Just keep clicking next except one step where you must ensure to check the 2nd to be ticked and 1st option is not.
+  You can keep all the default settings except one: make sure that you don't add anaconda to path(this will create some problems in long run).
   
 ### Setting up anaconda: - 
 1. Open one anaconda3 terminal.
@@ -47,5 +47,5 @@ First we need some software for applying these scripts.
    
 3. Run T1, T2, T4, T5.
 4. Now open mission planner and wait until it spawns the two drones.
-5. When done spawning run T3 and T6.
+5. When done spawning, run T3 and T6.
 6. Let the scripts run and you can observe drones.
