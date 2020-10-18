@@ -89,7 +89,7 @@ while True:
 coordinates = [[10.7575664, 78.8160476], [10.7573649, 78.8158120], [10.7571541, 78.8159917], [10.7571448, 78.8163967], [10.7573820, 78.8163364]]
 
 #call the function which governs the working of survey drone
-follow_waypoint(wp)
+follow_waypoint(coordinates)
 
 time.sleep(30)
 f = open("Temp_Log.txt","a+")
