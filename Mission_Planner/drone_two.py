@@ -43,7 +43,7 @@ for line in f:
     if line not in reach:
         temp = list(line.split())
         waypoint = LocationGlobalRelative(int(temp[0],int(temp[1]),10)
-        reach.append(wp)
+        reach.append(waypoint)
         i = 0
         vehicle.simple_goto(waypoint)
         print([vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.alt])
