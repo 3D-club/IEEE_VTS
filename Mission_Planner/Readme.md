@@ -16,7 +16,7 @@ First we need some software for applying these scripts.
   
 ### Setting up anaconda: - 
 1. Open one anaconda3 terminal.
-2. Type ```conda create -n environment_name python==2.7``` and run it. This creates a environment where we can install any other version of python in which we wish to work.
+2. Type ```conda create -n environment_name python=2.7``` and run it. This creates a environment where we can install any other version of python in which we wish to work.
 3. Type ```conda activate environment_name``` to activate the environment.
 4. Now we will install some necessary frameworks.
 5. Use the following commands one by one and wait for completion: - 
